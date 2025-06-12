@@ -46,3 +46,10 @@ To see the trace output, in a separate terminal run:
 
 `sudo cat /sys/kernel/debug/tracing/trace_pipe`
 
+
+⚠️ **Note:** You may see the following message when attaching the eBPF program:
+
+ ```
+ libbpf: Kernel error message: Exclusivity flag on, cannot modify
+```
+ This can be safely ignored. It does not affect functionality.
