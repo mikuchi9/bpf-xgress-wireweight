@@ -4,10 +4,21 @@
 #include <net/if.h>
 #include <unistd.h>
 
-#define NET_INTERFACE "your_net_interface_name"
-
-int main() {
+int main(int argc, char **argv) {
     
+    unsigned int net_iface;
+
+    if (argc > 1) {
+        net_iface = if_nametoindex(argv[1]); 
+        if (net_iface == 0) {
+            fprintf(stderr, "There is no such network interface: %s\n", argv[1]);
+            return 1;
+        }
+    } else {
+        printf("Usage: sudo ./user.ebpf <network_interface_name>\n");
+        return 0;
+    }
+
     int err  = 0;
     
     // opening
@@ -48,18 +59,18 @@ int main() {
         printf("cannot find the program\n");
 
     struct bpf_tc_hook igr_hook = {0};
-    igr_hook.sz = sizeof(struct bpf_tc_hook),
-    igr_hook.ifindex = if_nametoindex(NET_INTERFACE),
-    igr_hook.attach_point = BPF_TC_INGRESS,
+    igr_hook.sz = sizeof(struct bpf_tc_hook);
+    igr_hook.ifindex = net_iface;
+    igr_hook.attach_point = BPF_TC_INGRESS;
     
     bpf_tc_hook_create(&igr_hook);
 
     struct bpf_tc_opts igr_opts = {0};
-    igr_opts.sz = sizeof(struct bpf_tc_opts),
-    igr_opts.prog_fd = igr_prog_fd,
-    igr_opts.prog_id = 0,
-    igr_opts.flags = BPF_TC_F_REPLACE,
-    igr_opts.priority = 1,
+    igr_opts.sz = sizeof(struct bpf_tc_opts);
+    igr_opts.prog_fd = igr_prog_fd;
+    igr_opts.prog_id = 0;
+    igr_opts.flags = BPF_TC_F_REPLACE;
+    igr_opts.priority = 1;
 
     bpf_tc_attach(&igr_hook, &igr_opts);
 
@@ -69,18 +80,18 @@ int main() {
         printf("cannot find the program\n");
 
     struct bpf_tc_hook egr_hook = {0};
-    egr_hook.sz = sizeof(struct bpf_tc_hook),
-    egr_hook.ifindex = if_nametoindex(NET_INTERFACE),
-    egr_hook.attach_point = BPF_TC_EGRESS,
+    egr_hook.sz = sizeof(struct bpf_tc_hook);
+    egr_hook.ifindex = net_iface;
+    egr_hook.attach_point = BPF_TC_EGRESS;
     
     bpf_tc_hook_create(&egr_hook);
 
     struct bpf_tc_opts egr_opts = {0};
-    egr_opts.sz = sizeof(struct bpf_tc_opts),
-    egr_opts.prog_fd = egr_prog_fd,
-    egr_opts.prog_id = 0,
-    egr_opts.flags = BPF_TC_F_REPLACE,
-    egr_opts.priority = 1,
+    egr_opts.sz = sizeof(struct bpf_tc_opts);
+    egr_opts.prog_fd = egr_prog_fd;
+    egr_opts.prog_id = 0;
+    egr_opts.flags = BPF_TC_F_REPLACE;
+    egr_opts.priority = 1;
         
     bpf_tc_attach(&egr_hook, &egr_opts);
 
