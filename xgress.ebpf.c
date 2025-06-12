@@ -73,14 +73,14 @@ int ingress_throughput(struct __sk_buff *skb)
         checked_time_past = time_now;
 
         bpf_printk("INGRESS TRAFFIC");
-        bpf_printk("protocol header overhead, total (bits/sec): %llu", i_sum_of_proto_tcp_headers + i_sum_of_proto_udp_headers);
-        bpf_printk("payload in sec, total (bits/sec): %llu", i_sum_of_tcp_payload + i_sum_of_udp_payload);
+        bpf_printk("protocol header overhead, total (bytes/sec): %llu", i_sum_of_proto_tcp_headers + i_sum_of_proto_udp_headers);
+        bpf_printk("payload in sec, total (bytes/sec): %llu", i_sum_of_tcp_payload + i_sum_of_udp_payload);
         
-        bpf_printk("TCP protocol header overhead (bits/sec): %lu", i_sum_of_proto_tcp_headers);
-        bpf_printk("TCP payload in sec (bits/sec): %lu", i_sum_of_tcp_payload);
+        bpf_printk("TCP protocol header overhead (bytes/sec): %lu", i_sum_of_proto_tcp_headers);
+        bpf_printk("TCP payload in sec (bytes/sec): %lu", i_sum_of_tcp_payload);
         
-        bpf_printk("UDP protocol header overhead (bits/_sec): %lu", i_sum_of_proto_udp_headers);
-        bpf_printk("UDP payload in sec (bits/sec): %lu\n", i_sum_of_udp_payload);
+        bpf_printk("UDP protocol header overhead (bytes/sec): %lu", i_sum_of_proto_udp_headers);
+        bpf_printk("UDP payload in sec (bytes/sec): %lu\n", i_sum_of_udp_payload);
 
         i_sum_of_proto_tcp_headers = 0;
         i_sum_of_proto_udp_headers = 0;
@@ -137,14 +137,14 @@ int egress_throughput(struct __sk_buff *skb)
         checked_time_past = time_now;
 
         bpf_printk("EGRESS TRAFFIC");
-        bpf_printk("protocol header overhead, total (bits/sec): %llu", e_sum_of_proto_tcp_headers + e_sum_of_proto_udp_headers);
-        bpf_printk("payload in sec, total (bits/sec): %llu", e_sum_of_tcp_payload + e_sum_of_udp_payload);
+        bpf_printk("protocol header overhead, total (bytes/sec): %llu", e_sum_of_proto_tcp_headers + e_sum_of_proto_udp_headers);
+        bpf_printk("payload in sec, total (bytes/sec): %llu", e_sum_of_tcp_payload + e_sum_of_udp_payload);
         
-        bpf_printk("TCP protocol header overhead (bits/sec): %lu", e_sum_of_proto_tcp_headers);
-        bpf_printk("TCP payload in sec (bits/sec): %lu", e_sum_of_tcp_payload);
+        bpf_printk("TCP protocol header overhead (bytes/sec): %lu", e_sum_of_proto_tcp_headers);
+        bpf_printk("TCP payload in sec (bytes/sec): %lu", e_sum_of_tcp_payload);
         
-        bpf_printk("UDP protocol header overhead (bits/sec): %lu", e_sum_of_proto_udp_headers);
-        bpf_printk("UDP payload in sec (bits/sec): %lu\n", e_sum_of_udp_payload);
+        bpf_printk("UDP protocol header overhead (bytes/sec): %lu", e_sum_of_proto_udp_headers);
+        bpf_printk("UDP payload in sec (bytes/sec): %lu\n", e_sum_of_udp_payload);
 
         e_sum_of_proto_tcp_headers = 0;
         e_sum_of_proto_udp_headers = 0;
