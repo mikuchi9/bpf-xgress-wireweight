@@ -1,4 +1,4 @@
-## bpf-xgress-wireweight — Ingress/Egress Bandwidth Profiler with Payload vs Protocol Breakdown
+## ebpf-xgress-wireweight — Ingress/Egress Bandwidth Profiler with Payload vs Protocol Breakdown
 
 A bandwidth analysis tool based on eBPF, designed to attach to the Linux Traffic Control (TC) layer. 
 It provides real-time statistics on ingress and egress traffic for a selected interface, breaking down total bandwidth into **payload** and **protocol overhead** components.
