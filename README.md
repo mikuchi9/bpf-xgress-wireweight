@@ -24,12 +24,6 @@ It consists of:
 - Clang/LLVM and libbpf-dev
 - Root privileges
 
-**_Before compiling_**
-
-Before compiling `user.ebpf.c`, edit the following line to specify your network interface:
-
-`#define NET_INTERFACE "your_net_interface_name"`
-
 ### Compile the eBPF program:
 ```
 clang -v -O2 -g -Wall -target bpf -c xgress.ebpf.c -o xgress.ebpf.o
@@ -38,7 +32,7 @@ clang -v -O2 -g -Wall user.ebpf.c -o user.ebpf -lbpf
 
 ### Run the Program
 
-After successful compilation, run the program with `sudo ./user.ebpf`
+After successful compilation, run the program with `sudo ./user.ebpf <network_interface_name>`
 
 This will:
 - Load the eBPF program
